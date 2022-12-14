@@ -35,7 +35,7 @@ public class HelloController {
                 Element cardInfoElement = cardDetailElement.child(1);
                 Element priceInfoElement = cardInfoElement.child(2);
                 String imgURL, buyURL, companyName, productName, saleRate, priceSale, priceOrigin;
-                buyURL = card.attr("href").toString();
+                buyURL = cardDetailElement.attr("abs:href").toString();
                 System.out.println(buyURL);
                 imgURL = cardDetailElement.child(0).child(0).attr("style").split("url")[1].toString().replaceAll("[\\(\\)']","");
                 System.out.println(imgURL);
@@ -64,6 +64,7 @@ public class HelloController {
                     priceOrigin = priceInfoElement.child(2).text().toString();
                     System.out.println(priceOrigin);
                 }
+                tmp.buyURL = buyURL;
                 tmp.imgURL = imgURL;
                 tmp.companyName = companyName;
                 tmp.productName = productName;
