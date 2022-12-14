@@ -32,44 +32,44 @@ public class HelloController {
             for (Element card : cards) {
                 ProductInfo tmp = new ProductInfo();
                 Element cardDetailElement = card.child(0);
-                String imgURL = cardDetailElement.child(0).child(0).attr("style").split("url")[1].toString().replaceAll("[\\(\\)']","");
-                System.out.println(imgURL);
                 Element cardInfoElement = cardDetailElement.child(1);
-                String companyName = cardInfoElement.child(0).text().toString();
-                System.out.println(companyName);
-                String productName = cardInfoElement.child(1).text().toString();
-                System.out.println(productName);
                 Element priceInfoElement = cardInfoElement.child(2);
-
+                String imgURL, buyURL, companyName, productName, saleRate, priceSale, priceOrigin;
+                buyURL = card.attr("href").toString();
+                System.out.println(buyURL);
+                imgURL = cardDetailElement.child(0).child(0).attr("style").split("url")[1].toString().replaceAll("[\\(\\)']","");
+                System.out.println(imgURL);
+                companyName = cardInfoElement.child(0).text().toString();
+                System.out.println(companyName);
+                productName = cardInfoElement.child(1).text().toString();
+                System.out.println(productName);
+                
+                
+                //할인이 안 들어 갔다면
                 if (priceInfoElement.childrenSize() == 1) {
-                    String saleRate = "none";
+                    saleRate = "none";
                     System.out.println(saleRate);
-                    String priceSale = "none";
+                    priceSale = "none";
                     System.out.println(priceSale);
-                    String priceOrigin = priceInfoElement.child(0).text().toString();
+                    priceOrigin = priceInfoElement.child(0).text().toString();
                     System.out.println(priceOrigin);
-                    tmp.imgURL = imgURL;
-                    tmp.compnayName = companyName;
-                    tmp.productName = productName;
-                    tmp.saleRate = saleRate;
-                    tmp.priceSale = priceSale;
-                    tmp.priceOrigin = priceOrigin;
-                }
-                else {
-                    String saleRate = priceInfoElement.child(0).text().toString();
-                    System.out.println(saleRate);
-                    String priceSale = priceInfoElement.child(1).text().toString();
-                    System.out.println(priceSale);
-                    String priceOrigin = priceInfoElement.child(2).text().toString();
-                    System.out.println(priceOrigin);
-                    tmp.imgURL = imgURL;
-                    tmp.compnayName = companyName;
-                    tmp.productName = productName;
-                    tmp.saleRate = saleRate;
-                    tmp.priceSale = priceSale;
-                    tmp.priceOrigin = priceOrigin;
-                }
 
+                }
+                //할인이 들어갔다면
+                else {
+                    saleRate = priceInfoElement.child(0).text().toString();
+                    System.out.println(saleRate);
+                    priceSale = priceInfoElement.child(1).text().toString();
+                    System.out.println(priceSale);
+                    priceOrigin = priceInfoElement.child(2).text().toString();
+                    System.out.println(priceOrigin);
+                }
+                tmp.imgURL = imgURL;
+                tmp.companyName = companyName;
+                tmp.productName = productName;
+                tmp.saleRate = saleRate;
+                tmp.priceSale = priceSale;
+                tmp.priceOrigin = priceOrigin;
                 resList.add(tmp);
             }
             response.data = resList;

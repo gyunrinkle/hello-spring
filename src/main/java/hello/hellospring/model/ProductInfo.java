@@ -6,8 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProductInfo {
+        public String buyURL;
         public String imgURL;
-        public String compnayName;
+        public String companyName;
         public String productName;
         public String saleRate;
         public String priceSale;
